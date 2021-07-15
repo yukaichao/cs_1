@@ -133,9 +133,9 @@ void StartDefaultTask(void const * argument)
   for(;;)
   {
     osDelay(1000);
-	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
-//	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
-//	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
+	  HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
+//  	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
+//  	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -154,11 +154,11 @@ void StartTask02(void const * argument)
   for(;;)
   {
     osDelay(500);
-	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
-	OLED_Refreash();
+    HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
+    OLED_Refreash();
     uint8_t buff[]="";
     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
-	OLED_ShowString(OLED_2,0,1,(char*)buff,16);
+    OLED_ShowString(OLED_2,0,1,(char*)buff,16);
   }
   /* USER CODE END StartTask02 */
 }
