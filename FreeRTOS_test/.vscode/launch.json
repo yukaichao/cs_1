@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "command":"make",   //编译指令
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/FreeRTOS_test.elf",//在这里改文件
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": [
+                "interface/stlink-v2.cfg",
+                // "target/stm32f0x.cfg"
+                // "target/stm32f1x.cfg"
+                // "target/stm32f2x.cfg"
+                // "target/stm32f3x.cfg"
+                "target/stm32f4x.cfg"
+                // "target/stm32f7x.cfg"
+            ]
+        }
+    ]
+}

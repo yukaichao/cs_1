@@ -96,7 +96,7 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 	OLED_Init();
-	OLED_ShowString(OLED_1,0,0,"oled1_ok",16);
+	OLED_ShowString(OLED_1,0,1,"oled1_ok",16);
 	OLED_ShowString(OLED_2,0,1,"oled2_ok",16);
 	HAL_Delay(1);
 	OLED_Refreash();
