@@ -154,6 +154,7 @@ void StartTask02(void const * argument)
   {
     osDelay(500);
 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
+	OLED_Refreash();
   }
   /* USER CODE END StartTask02 */
 }

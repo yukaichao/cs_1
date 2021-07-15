@@ -34,10 +34,14 @@ uint8_t CMD_Data[]={
 					
 0xC8, 0xD3, 0x00, 0xD5, 0x80, 0xD8, 0x05, 0xD9, 0xF1, 0xDA, 0x12,
 					
-0xDB, 0x30, 0x8D, 0x14, 0xAF,0x20,0x00};
+0xD8, 0x30, 0x8D, 0x14, 0xAF};
 void WriteCmd(uint8_t ADDRESS)
 {
-	HAL_I2C_Mem_Write_DMA(&hi2c1,ADDRESS,0x00,I2C_MEMADD_SIZE_8BIT,CMD_Data,29);
+ uint8_t i=0;
+ for(i=0; i<27; i++)
+	{
+ HAL_I2C_Mem_Write(&hi2c1 ,0x78,0x00,I2C_MEMADD_SIZE_8BIT,CMD_Data+i,1,0x100);
+  }
 }
 
 
@@ -65,7 +69,7 @@ void OLED_Init(void)
 { 	
 	HAL_Delay(200);//这里的延时很重要
 	WriteCmd(OLED_1);
-	HAL_Delay(100);//这里的延时很重要
+	HAL_Delay(200);//这里的延时很重要
 	WriteCmd(OLED_2);
 }
 //清屏
