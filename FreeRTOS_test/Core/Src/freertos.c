@@ -26,12 +26,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern uint32_t AD_TwoChanel_value[2];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -131,8 +131,10 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(500);
+    osDelay(1000);
 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
+	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
+	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
   }
   /* USER CODE END StartDefaultTask */
 }
