@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccXdwkJj.s 			page 1
+ARM GAS  /tmp/ccdeXdWP.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
   17:Core/Src/freertos.c ****   ******************************************************************************
   18:Core/Src/freertos.c ****   */
   19:Core/Src/freertos.c **** /* USER CODE END Header */
-ARM GAS  /tmp/ccXdwkJj.s 			page 2
+ARM GAS  /tmp/ccdeXdWP.s 			page 2
 
 
   20:Core/Src/freertos.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
   74:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
   75:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
   76:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-ARM GAS  /tmp/ccXdwkJj.s 			page 3
+ARM GAS  /tmp/ccdeXdWP.s 			page 3
 
 
   77:Core/Src/freertos.c ****   /* place for user code */
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
   36              		.loc 1 130 1 view -0
   37              		.cfi_startproc
   38              		@ Volatile: function does not return.
-ARM GAS  /tmp/ccXdwkJj.s 			page 4
+ARM GAS  /tmp/ccdeXdWP.s 			page 4
 
 
   39              		@ args = 0, pretend = 0, frame = 0
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
  142:Core/Src/freertos.c **** 
  143:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartTask02 */
  144:Core/Src/freertos.c **** /**
-ARM GAS  /tmp/ccXdwkJj.s 			page 5
+ARM GAS  /tmp/ccdeXdWP.s 			page 5
 
 
  145:Core/Src/freertos.c **** * @brief Function implementing the HJY_OLED thread.
@@ -285,26 +285,25 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
  110              		.loc 1 158 2 discriminator 1 view .LVU11
  111 0014 FFF7FEFF 		bl	OLED_Refreash
  112              	.LVL8:
- 159:Core/Src/freertos.c **** 	
- 160:Core/Src/freertos.c ****     uint8_t buff[]="";
- 113              		.loc 1 160 5 discriminator 1 view .LVU12
- 114              		.loc 1 160 13 is_stmt 0 discriminator 1 view .LVU13
+ 159:Core/Src/freertos.c ****     uint8_t buff[]="";
+ 113              		.loc 1 159 5 discriminator 1 view .LVU12
+ 114              		.loc 1 159 13 is_stmt 0 discriminator 1 view .LVU13
  115 0018 0024     		movs	r4, #0
  116 001a 8DF80C40 		strb	r4, [sp, #12]
- 161:Core/Src/freertos.c ****     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
- 117              		.loc 1 161 5 is_stmt 1 discriminator 1 view .LVU14
+ 160:Core/Src/freertos.c ****     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
+ 117              		.loc 1 160 5 is_stmt 1 discriminator 1 view .LVU14
  118 001e 094B     		ldr	r3, .L9+4
  119 0020 1B68     		ldr	r3, [r3]
  120 0022 094A     		ldr	r2, .L9+8
  121 0024 3C21     		movs	r1, #60
  122 0026 03A8     		add	r0, sp, #12
-ARM GAS  /tmp/ccXdwkJj.s 			page 6
-
-
  123 0028 FFF7FEFF 		bl	snprintf
+ARM GAS  /tmp/ccdeXdWP.s 			page 6
+
+
  124              	.LVL9:
- 162:Core/Src/freertos.c **** 	OLED_ShowString(OLED_2,0,1,(char*)buff,16);
- 125              		.loc 1 162 2 discriminator 1 view .LVU15
+ 161:Core/Src/freertos.c **** 	OLED_ShowString(OLED_2,0,1,(char*)buff,16);
+ 125              		.loc 1 161 2 discriminator 1 view .LVU15
  126 002c 1023     		movs	r3, #16
  127 002e 0093     		str	r3, [sp]
  128 0030 03AB     		add	r3, sp, #12
@@ -358,10 +357,10 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
   76:Core/Src/freertos.c ****   /* place for user code */
  171              		.loc 1 76 25 is_stmt 0 view .LVU23
  172 0008 8023     		movs	r3, #128
-ARM GAS  /tmp/ccXdwkJj.s 			page 7
-
-
  173 000a 1360     		str	r3, [r2]
+ARM GAS  /tmp/ccdeXdWP.s 			page 7
+
+
   78:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
  174              		.loc 1 78 1 view .LVU24
  175 000c 7047     		bx	lr
@@ -418,10 +417,10 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
  223 001e 0A4B     		ldr	r3, .L16+4
  224 0020 1860     		str	r0, [r3]
  113:Core/Src/freertos.c ****   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
-ARM GAS  /tmp/ccXdwkJj.s 			page 8
-
-
  225              		.loc 1 113 3 is_stmt 1 view .LVU30
+ARM GAS  /tmp/ccdeXdWP.s 			page 8
+
+
  226 0022 6D46     		mov	r5, sp
  227 0024 1C34     		adds	r4, r4, #28
  228 0026 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
@@ -478,10 +477,10 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
  276 002c 80000000 		.word	128
  277 0030 00000000 		.word	0
  278 0034 00000000 		.word	0
-ARM GAS  /tmp/ccXdwkJj.s 			page 9
-
-
  279              		.section	.bss.xIdleStack,"aw",%nobits
+ARM GAS  /tmp/ccdeXdWP.s 			page 9
+
+
  280              		.align	2
  281              		.set	.LANCHOR1,. + 0
  284              	xIdleStack:
@@ -519,32 +518,32 @@ ARM GAS  /tmp/ccXdwkJj.s 			page 1
  310              		.file 17 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
  311              		.file 18 "Core/Inc/oled.h"
  312              		.file 19 "/usr/include/newlib/stdio.h"
-ARM GAS  /tmp/ccXdwkJj.s 			page 10
+ARM GAS  /tmp/ccdeXdWP.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 freertos.c
-     /tmp/ccXdwkJj.s:15     .rodata.str1.4:0000000000000000 $d
-     /tmp/ccXdwkJj.s:25     .text.StartDefaultTask:0000000000000000 $t
-     /tmp/ccXdwkJj.s:33     .text.StartDefaultTask:0000000000000000 StartDefaultTask
-     /tmp/ccXdwkJj.s:65     .text.StartDefaultTask:0000000000000014 $d
-     /tmp/ccXdwkJj.s:70     .rodata.StartTask02.str1.4:0000000000000000 $d
-     /tmp/ccXdwkJj.s:74     .text.StartTask02:0000000000000000 $t
-     /tmp/ccXdwkJj.s:81     .text.StartTask02:0000000000000000 StartTask02
-     /tmp/ccXdwkJj.s:140    .text.StartTask02:0000000000000040 $d
-     /tmp/ccXdwkJj.s:147    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
-     /tmp/ccXdwkJj.s:154    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
-     /tmp/ccXdwkJj.s:179    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
-     /tmp/ccXdwkJj.s:185    .text.MX_FREERTOS_Init:0000000000000000 $t
-     /tmp/ccXdwkJj.s:192    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
-     /tmp/ccXdwkJj.s:250    .text.MX_FREERTOS_Init:0000000000000044 $d
+     /tmp/ccdeXdWP.s:15     .rodata.str1.4:0000000000000000 $d
+     /tmp/ccdeXdWP.s:25     .text.StartDefaultTask:0000000000000000 $t
+     /tmp/ccdeXdWP.s:33     .text.StartDefaultTask:0000000000000000 StartDefaultTask
+     /tmp/ccdeXdWP.s:65     .text.StartDefaultTask:0000000000000014 $d
+     /tmp/ccdeXdWP.s:70     .rodata.StartTask02.str1.4:0000000000000000 $d
+     /tmp/ccdeXdWP.s:74     .text.StartTask02:0000000000000000 $t
+     /tmp/ccdeXdWP.s:81     .text.StartTask02:0000000000000000 StartTask02
+     /tmp/ccdeXdWP.s:140    .text.StartTask02:0000000000000040 $d
+     /tmp/ccdeXdWP.s:147    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
+     /tmp/ccdeXdWP.s:154    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
+     /tmp/ccdeXdWP.s:179    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
+     /tmp/ccdeXdWP.s:185    .text.MX_FREERTOS_Init:0000000000000000 $t
+     /tmp/ccdeXdWP.s:192    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
+     /tmp/ccdeXdWP.s:250    .text.MX_FREERTOS_Init:0000000000000044 $d
                             *COM*:0000000000000004 YKC_OLEDHandle
                             *COM*:0000000000000004 HJY_OLEDHandle
-     /tmp/ccXdwkJj.s:259    .rodata:0000000000000000 $d
-     /tmp/ccXdwkJj.s:280    .bss.xIdleStack:0000000000000000 $d
-     /tmp/ccXdwkJj.s:284    .bss.xIdleStack:0000000000000000 xIdleStack
-     /tmp/ccXdwkJj.s:287    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
-     /tmp/ccXdwkJj.s:291    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
+     /tmp/ccdeXdWP.s:259    .rodata:0000000000000000 $d
+     /tmp/ccdeXdWP.s:280    .bss.xIdleStack:0000000000000000 $d
+     /tmp/ccdeXdWP.s:284    .bss.xIdleStack:0000000000000000 xIdleStack
+     /tmp/ccdeXdWP.s:287    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
+     /tmp/ccdeXdWP.s:291    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
 
 UNDEFINED SYMBOLS
 osDelay

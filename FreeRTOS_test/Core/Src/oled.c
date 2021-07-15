@@ -34,14 +34,10 @@ uint8_t CMD_Data[]={
 					
 0xC8, 0xD3, 0x00, 0xD5, 0x80, 0xD8, 0x05, 0xD9, 0xF1, 0xDA, 0x12,
 					
-0xDB, 0x30, 0x8D, 0x14, 0xAF};
+0xDB, 0x30, 0x8D, 0x14, 0xAF,0x20,0x00};
 void WriteCmd(uint8_t ADDRESS)
 {
- uint8_t i=0;
- for(i=0; i<27; i++)
-	{
- HAL_I2C_Mem_Write(&hi2c1 ,0x78,0x00,I2C_MEMADD_SIZE_8BIT,CMD_Data+i,1,0x100);
-  }
+	HAL_I2C_Mem_Write_DMA(&hi2c1,ADDRESS,0x00,I2C_MEMADD_SIZE_8BIT,CMD_Data,29);
 }
 
 
@@ -223,7 +219,7 @@ void OLED_ShowString(uint8_t ADDRESS,uint8_t x,uint8_t y,char chr[],uint8_t Char
 //显示汉字
 //hzk 用取模软件得出的数组
 void OLED_ShowCHinese(uint8_t ADDRESS,uint8_t x,uint8_t y,uint8_t no)
-{      			    
+{
 	uint8_t t;
 	
 	if(ADDRESS == OLED_1)
