@@ -816,14 +816,15 @@ ARM Macro Assembler    Page 13
   417 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=freertos_test\startup_stm32f405xx.d -ofreertos_test\startup_stm
-32f405xx.o -I..\Core\Inc -I.\RTE\_FreeRTOS_test -I"D:\Micro Control plan\MDK526
-\ARM\CMSIS\5.4.0\CMSIS\Core\Include" -I"D:\Micro Control plan\MDK526\Keil\STM32
-F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include" --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1"
- --predefine="STM32F405xx SETA 1" --list=startup_stm32f405xx.lst startup_stm32f
-405xx.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=freertos_test\startup_stm32f405xx.d -ofreertos_test\startup_
+stm32f405xx.o -I..\Core\Inc -I.\RTE\_FreeRTOS_test -IC:\Users\65739\AppData\Loc
+al\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Users\65739\AppData\Local\
+Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -
+-predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISI
+ON_VERSION SETA 533" --predefine="_RTE_ SETA 1" --predefine="STM32F405xx SETA 1
+" --predefine="_RTE_ SETA 1" --list=startup_stm32f405xx.lst startup_stm32f405xx
+.s
 
 
 
@@ -1875,4 +1876,4 @@ Symbol: __main
       At line 177 in file startup_stm32f405xx.s
 Comment: __main used once
 2 symbols
-442 symbols in table
+443 symbols in table

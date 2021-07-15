@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "freertos_test\startup_stm32f405xx.o"
 "freertos_test\main.o"
 "freertos_test\gpio.o"
@@ -9,6 +9,7 @@
 "freertos_test\stm32f4xx_it.o"
 "freertos_test\stm32f4xx_hal_msp.o"
 "freertos_test\stm32f4xx_hal_timebase_tim.o"
+"freertos_test\oled.o"
 "freertos_test\stm32f4xx_hal_adc.o"
 "freertos_test\stm32f4xx_hal_adc_ex.o"
 "freertos_test\stm32f4xx_ll_adc.o"

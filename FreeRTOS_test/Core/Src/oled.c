@@ -24,9 +24,8 @@
 
 #include "oledfont.h"  	 
 
-#include "stm32f1xx_hal.h"			   
+#include "stm32f4xx_hal.h"			   
 extern I2C_HandleTypeDef hi2c1;
-extern UART_HandleTypeDef huart1;
 #define OLED_ADDRESS	0x78 //通过调整0R电阻,屏可以选择0x78  0x7A两个地址   默认为0x78
 
 uint8_t OLED[8][128]={0};
