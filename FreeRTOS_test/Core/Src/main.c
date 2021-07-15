@@ -27,7 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "oled.h"
+#include "bmp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,7 +95,10 @@ int main(void)
   MX_ADC1_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+	OLED_Init();
+	OLED_ShowString(0,0,"oled_ok",16);
+	HAL_Delay(1);
+	OLED_Refreash();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
