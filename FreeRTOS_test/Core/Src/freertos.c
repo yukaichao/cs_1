@@ -51,6 +51,7 @@ extern uint32_t AD_TwoChanel_value[2];
 /* USER CODE END Variables */
 osThreadId YKC_OLEDHandle;
 osThreadId HJY_OLEDHandle;
+osThreadId Task_OLED_refreHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -59,6 +60,7 @@ osThreadId HJY_OLEDHandle;
 
 void StartDefaultTask(void const * argument);
 void StartTask02(void const * argument);
+void StartTask_OLED_refresh(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -113,6 +115,12 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(HJY_OLED, StartTask02, osPriorityIdle, 0, 128);
   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
 
+
+ /* definition and creation of Task_OLED_refre */
+  osThreadDef(Task_OLED_refre, StartTask_OLED_refresh, osPriorityLow, 0, 128);
+  Task_OLED_refreHandle = osThreadCreate(osThread(Task_OLED_refre), NULL);
+
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -153,14 +161,26 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(500);
+    osDelay(100);
     HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
-    OLED_Refreash();
     uint8_t buff[]="";
     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
-    OLED_ShowString(OLED_2,0,1,(char*)buff,16);
+    OLED_Clear(OLED_2);
+    OLED_ShowString(OLED_2,0,3,(char*)buff,16);
   }
   /* USER CODE END StartTask02 */
+}
+
+void StartTask_OLED_refresh(void const * argument)
+{
+  /* USER CODE BEGIN StartTask_OLED_refresh */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(25);
+		OLED_Refreash();//40hz屏幕刷新
+  }
+  /* USER CODE END StartTask_OLED_refresh */
 }
 
 /* Private application code --------------------------------------------------*/

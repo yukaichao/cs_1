@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccdeXdWP.s 			page 1
+ARM GAS  /tmp/ccPoLI5A.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -25,20 +25,26 @@ ARM GAS  /tmp/ccdeXdWP.s 			page 1
   20 000c 484A595F 		.ascii	"HJY_OLED\000"
   20      4F4C4544 
   20      00
-  21              		.text
-  22              	.Ltext0:
-  23              		.cfi_sections	.debug_frame
-  24              		.section	.text.StartDefaultTask,"ax",%progbits
-  25              		.align	1
-  26              		.global	StartDefaultTask
-  27              		.arch armv7e-m
-  28              		.syntax unified
-  29              		.thumb
-  30              		.thumb_func
-  31              		.fpu fpv4-sp-d16
-  33              	StartDefaultTask:
-  34              	.LFB245:
-  35              		.file 1 "Core/Src/freertos.c"
+  21 0015 000000   		.align	2
+  22              	.LC4:
+  23 0018 5461736B 		.ascii	"Task_OLED_refre\000"
+  23      5F4F4C45 
+  23      445F7265 
+  23      66726500 
+  24              		.text
+  25              	.Ltext0:
+  26              		.cfi_sections	.debug_frame
+  27              		.section	.text.StartDefaultTask,"ax",%progbits
+  28              		.align	1
+  29              		.global	StartDefaultTask
+  30              		.arch armv7e-m
+  31              		.syntax unified
+  32              		.thumb
+  33              		.thumb_func
+  34              		.fpu fpv4-sp-d16
+  36              	StartDefaultTask:
+  37              	.LFB140:
+  38              		.file 1 "Core/Src/freertos.c"
    1:Core/Src/freertos.c **** /* USER CODE BEGIN Header */
    2:Core/Src/freertos.c **** /**
    3:Core/Src/freertos.c ****   ******************************************************************************
@@ -52,15 +58,15 @@ ARM GAS  /tmp/ccdeXdWP.s 			page 1
   11:Core/Src/freertos.c ****   *
   12:Core/Src/freertos.c ****   * This software component is licensed by ST under Ultimate Liberty license
   13:Core/Src/freertos.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+ARM GAS  /tmp/ccPoLI5A.s 			page 2
+
+
   14:Core/Src/freertos.c ****   * the License. You may obtain a copy of the License at:
   15:Core/Src/freertos.c ****   *                             www.st.com/SLA0044
   16:Core/Src/freertos.c ****   *
   17:Core/Src/freertos.c ****   ******************************************************************************
   18:Core/Src/freertos.c ****   */
   19:Core/Src/freertos.c **** /* USER CODE END Header */
-ARM GAS  /tmp/ccdeXdWP.s 			page 2
-
-
   20:Core/Src/freertos.c **** 
   21:Core/Src/freertos.c **** /* Includes ------------------------------------------------------------------*/
   22:Core/Src/freertos.c **** #include "FreeRTOS.h"
@@ -95,461 +101,559 @@ ARM GAS  /tmp/ccdeXdWP.s 			page 1
   51:Core/Src/freertos.c **** /* USER CODE END Variables */
   52:Core/Src/freertos.c **** osThreadId YKC_OLEDHandle;
   53:Core/Src/freertos.c **** osThreadId HJY_OLEDHandle;
-  54:Core/Src/freertos.c **** 
-  55:Core/Src/freertos.c **** /* Private function prototypes -----------------------------------------------*/
-  56:Core/Src/freertos.c **** /* USER CODE BEGIN FunctionPrototypes */
-  57:Core/Src/freertos.c **** 
-  58:Core/Src/freertos.c **** /* USER CODE END FunctionPrototypes */
-  59:Core/Src/freertos.c **** 
-  60:Core/Src/freertos.c **** void StartDefaultTask(void const * argument);
-  61:Core/Src/freertos.c **** void StartTask02(void const * argument);
-  62:Core/Src/freertos.c **** 
-  63:Core/Src/freertos.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+  54:Core/Src/freertos.c **** osThreadId Task_OLED_refreHandle;
+  55:Core/Src/freertos.c **** 
+  56:Core/Src/freertos.c **** /* Private function prototypes -----------------------------------------------*/
+  57:Core/Src/freertos.c **** /* USER CODE BEGIN FunctionPrototypes */
+  58:Core/Src/freertos.c **** 
+  59:Core/Src/freertos.c **** /* USER CODE END FunctionPrototypes */
+  60:Core/Src/freertos.c **** 
+  61:Core/Src/freertos.c **** void StartDefaultTask(void const * argument);
+  62:Core/Src/freertos.c **** void StartTask02(void const * argument);
+  63:Core/Src/freertos.c **** void StartTask_OLED_refresh(void const * argument);
   64:Core/Src/freertos.c **** 
-  65:Core/Src/freertos.c **** /* GetIdleTaskMemory prototype (linked to static allocation support) */
-  66:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
-  67:Core/Src/freertos.c **** 
-  68:Core/Src/freertos.c **** /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
-  69:Core/Src/freertos.c **** static StaticTask_t xIdleTaskTCBBuffer;
-  70:Core/Src/freertos.c **** static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
-  71:Core/Src/freertos.c **** 
-  72:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
-  73:Core/Src/freertos.c **** {
-  74:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-  75:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
-  76:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-ARM GAS  /tmp/ccdeXdWP.s 			page 3
+  65:Core/Src/freertos.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+  66:Core/Src/freertos.c **** 
+  67:Core/Src/freertos.c **** /* GetIdleTaskMemory prototype (linked to static allocation support) */
+  68:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
+  69:Core/Src/freertos.c **** 
+  70:Core/Src/freertos.c **** /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
+ARM GAS  /tmp/ccPoLI5A.s 			page 3
 
 
-  77:Core/Src/freertos.c ****   /* place for user code */
-  78:Core/Src/freertos.c **** }
-  79:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
-  80:Core/Src/freertos.c **** 
-  81:Core/Src/freertos.c **** /**
-  82:Core/Src/freertos.c ****   * @brief  FreeRTOS initialization
-  83:Core/Src/freertos.c ****   * @param  None
-  84:Core/Src/freertos.c ****   * @retval None
-  85:Core/Src/freertos.c ****   */
-  86:Core/Src/freertos.c **** void MX_FREERTOS_Init(void) {
-  87:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
-  88:Core/Src/freertos.c **** 
-  89:Core/Src/freertos.c ****   /* USER CODE END Init */
+  71:Core/Src/freertos.c **** static StaticTask_t xIdleTaskTCBBuffer;
+  72:Core/Src/freertos.c **** static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+  73:Core/Src/freertos.c **** 
+  74:Core/Src/freertos.c **** void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskS
+  75:Core/Src/freertos.c **** {
+  76:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  77:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  78:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  79:Core/Src/freertos.c ****   /* place for user code */
+  80:Core/Src/freertos.c **** }
+  81:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
+  82:Core/Src/freertos.c **** 
+  83:Core/Src/freertos.c **** /**
+  84:Core/Src/freertos.c ****   * @brief  FreeRTOS initialization
+  85:Core/Src/freertos.c ****   * @param  None
+  86:Core/Src/freertos.c ****   * @retval None
+  87:Core/Src/freertos.c ****   */
+  88:Core/Src/freertos.c **** void MX_FREERTOS_Init(void) {
+  89:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
   90:Core/Src/freertos.c **** 
-  91:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_MUTEX */
-  92:Core/Src/freertos.c ****   /* add mutexes, ... */
-  93:Core/Src/freertos.c ****   /* USER CODE END RTOS_MUTEX */
-  94:Core/Src/freertos.c **** 
-  95:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  96:Core/Src/freertos.c ****   /* add semaphores, ... */
-  97:Core/Src/freertos.c ****   /* USER CODE END RTOS_SEMAPHORES */
-  98:Core/Src/freertos.c **** 
-  99:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_TIMERS */
- 100:Core/Src/freertos.c ****   /* start timers, add new ones, ... */
- 101:Core/Src/freertos.c ****   /* USER CODE END RTOS_TIMERS */
- 102:Core/Src/freertos.c **** 
- 103:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_QUEUES */
- 104:Core/Src/freertos.c ****   /* add queues, ... */
- 105:Core/Src/freertos.c ****   /* USER CODE END RTOS_QUEUES */
- 106:Core/Src/freertos.c **** 
- 107:Core/Src/freertos.c ****   /* Create the thread(s) */
- 108:Core/Src/freertos.c ****   /* definition and creation of YKC_OLED */
- 109:Core/Src/freertos.c ****   osThreadDef(YKC_OLED, StartDefaultTask, osPriorityNormal, 0, 128);
- 110:Core/Src/freertos.c ****   YKC_OLEDHandle = osThreadCreate(osThread(YKC_OLED), NULL);
- 111:Core/Src/freertos.c **** 
- 112:Core/Src/freertos.c ****   /* definition and creation of HJY_OLED */
- 113:Core/Src/freertos.c ****   osThreadDef(HJY_OLED, StartTask02, osPriorityIdle, 0, 128);
- 114:Core/Src/freertos.c ****   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
- 115:Core/Src/freertos.c **** 
- 116:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_THREADS */
- 117:Core/Src/freertos.c ****   /* add threads, ... */
- 118:Core/Src/freertos.c ****   /* USER CODE END RTOS_THREADS */
- 119:Core/Src/freertos.c **** 
- 120:Core/Src/freertos.c **** }
+  91:Core/Src/freertos.c ****   /* USER CODE END Init */
+  92:Core/Src/freertos.c **** 
+  93:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_MUTEX */
+  94:Core/Src/freertos.c ****   /* add mutexes, ... */
+  95:Core/Src/freertos.c ****   /* USER CODE END RTOS_MUTEX */
+  96:Core/Src/freertos.c **** 
+  97:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_SEMAPHORES */
+  98:Core/Src/freertos.c ****   /* add semaphores, ... */
+  99:Core/Src/freertos.c ****   /* USER CODE END RTOS_SEMAPHORES */
+ 100:Core/Src/freertos.c **** 
+ 101:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_TIMERS */
+ 102:Core/Src/freertos.c ****   /* start timers, add new ones, ... */
+ 103:Core/Src/freertos.c ****   /* USER CODE END RTOS_TIMERS */
+ 104:Core/Src/freertos.c **** 
+ 105:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_QUEUES */
+ 106:Core/Src/freertos.c ****   /* add queues, ... */
+ 107:Core/Src/freertos.c ****   /* USER CODE END RTOS_QUEUES */
+ 108:Core/Src/freertos.c **** 
+ 109:Core/Src/freertos.c ****   /* Create the thread(s) */
+ 110:Core/Src/freertos.c ****   /* definition and creation of YKC_OLED */
+ 111:Core/Src/freertos.c ****   osThreadDef(YKC_OLED, StartDefaultTask, osPriorityNormal, 0, 128);
+ 112:Core/Src/freertos.c ****   YKC_OLEDHandle = osThreadCreate(osThread(YKC_OLED), NULL);
+ 113:Core/Src/freertos.c **** 
+ 114:Core/Src/freertos.c ****   /* definition and creation of HJY_OLED */
+ 115:Core/Src/freertos.c ****   osThreadDef(HJY_OLED, StartTask02, osPriorityIdle, 0, 128);
+ 116:Core/Src/freertos.c ****   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
+ 117:Core/Src/freertos.c **** 
+ 118:Core/Src/freertos.c **** 
+ 119:Core/Src/freertos.c ****  /* definition and creation of Task_OLED_refre */
+ 120:Core/Src/freertos.c ****   osThreadDef(Task_OLED_refre, StartTask_OLED_refresh, osPriorityLow, 0, 128);
+ 121:Core/Src/freertos.c ****   Task_OLED_refreHandle = osThreadCreate(osThread(Task_OLED_refre), NULL);
+ 122:Core/Src/freertos.c **** 
+ 123:Core/Src/freertos.c **** 
+ 124:Core/Src/freertos.c ****   /* USER CODE BEGIN RTOS_THREADS */
+ 125:Core/Src/freertos.c ****   /* add threads, ... */
+ 126:Core/Src/freertos.c ****   /* USER CODE END RTOS_THREADS */
+ 127:Core/Src/freertos.c **** 
+ARM GAS  /tmp/ccPoLI5A.s 			page 4
+
+
+ 128:Core/Src/freertos.c **** }
+ 129:Core/Src/freertos.c **** 
+ 130:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartDefaultTask */
+ 131:Core/Src/freertos.c **** /**
+ 132:Core/Src/freertos.c ****   * @brief  Function implementing the YKC_OLED thread.
+ 133:Core/Src/freertos.c ****   * @param  argument: Not used
+ 134:Core/Src/freertos.c ****   * @retval None
+ 135:Core/Src/freertos.c ****   */
+ 136:Core/Src/freertos.c **** /* USER CODE END Header_StartDefaultTask */
+ 137:Core/Src/freertos.c **** void StartDefaultTask(void const * argument)
+ 138:Core/Src/freertos.c **** {
+  39              		.loc 1 138 1 view -0
+  40              		.cfi_startproc
+  41              		@ Volatile: function does not return.
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 0, uses_anonymous_args = 0
+  44              	.LVL0:
+  45              		.loc 1 138 1 is_stmt 0 view .LVU1
+  46 0000 08B5     		push	{r3, lr}
+  47              	.LCFI0:
+  48              		.cfi_def_cfa_offset 8
+  49              		.cfi_offset 3, -8
+  50              		.cfi_offset 14, -4
+  51              	.LVL1:
+  52              	.L2:
+ 139:Core/Src/freertos.c ****   /* USER CODE BEGIN StartDefaultTask */
+ 140:Core/Src/freertos.c ****   /* Infinite loop */
+ 141:Core/Src/freertos.c ****   for(;;)
+  53              		.loc 1 141 3 is_stmt 1 discriminator 1 view .LVU2
+ 142:Core/Src/freertos.c ****   {
+ 143:Core/Src/freertos.c ****     osDelay(1000);
+  54              		.loc 1 143 5 discriminator 1 view .LVU3
+  55 0002 4FF47A70 		mov	r0, #1000
+  56 0006 FFF7FEFF 		bl	osDelay
+  57              	.LVL2:
+ 144:Core/Src/freertos.c **** 	  HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
+  58              		.loc 1 144 4 discriminator 1 view .LVU4
+  59 000a 0421     		movs	r1, #4
+  60 000c 0148     		ldr	r0, .L4
+  61 000e FFF7FEFF 		bl	HAL_GPIO_TogglePin
+  62              	.LVL3:
+ 141:Core/Src/freertos.c ****   {
+  63              		.loc 1 141 8 discriminator 1 view .LVU5
+  64 0012 F6E7     		b	.L2
+  65              	.L5:
+  66              		.align	2
+  67              	.L4:
+  68 0014 00000240 		.word	1073872896
+  69              		.cfi_endproc
+  70              	.LFE140:
+  72              		.section	.rodata.StartTask02.str1.4,"aMS",%progbits,1
+  73              		.align	2
+  74              	.LC6:
+  75 0000 256400   		.ascii	"%d\000"
+  76              		.section	.text.StartTask02,"ax",%progbits
+  77              		.align	1
+  78              		.global	StartTask02
+ARM GAS  /tmp/ccPoLI5A.s 			page 5
+
+
+  79              		.syntax unified
+  80              		.thumb
+  81              		.thumb_func
+  82              		.fpu fpv4-sp-d16
+  84              	StartTask02:
+  85              	.LFB141:
+ 145:Core/Src/freertos.c **** //  	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
+ 146:Core/Src/freertos.c **** //  	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
+ 147:Core/Src/freertos.c ****   }
+ 148:Core/Src/freertos.c ****   /* USER CODE END StartDefaultTask */
+ 149:Core/Src/freertos.c **** }
+ 150:Core/Src/freertos.c **** 
+ 151:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartTask02 */
+ 152:Core/Src/freertos.c **** /**
+ 153:Core/Src/freertos.c **** * @brief Function implementing the HJY_OLED thread.
+ 154:Core/Src/freertos.c **** * @param argument: Not used
+ 155:Core/Src/freertos.c **** * @retval None
+ 156:Core/Src/freertos.c **** */
+ 157:Core/Src/freertos.c **** /* USER CODE END Header_StartTask02 */
+ 158:Core/Src/freertos.c **** void StartTask02(void const * argument)
+ 159:Core/Src/freertos.c **** {
+  86              		.loc 1 159 1 view -0
+  87              		.cfi_startproc
+  88              		@ Volatile: function does not return.
+  89              		@ args = 0, pretend = 0, frame = 8
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              	.LVL4:
+  92              		.loc 1 159 1 is_stmt 0 view .LVU7
+  93 0000 00B5     		push	{lr}
+  94              	.LCFI1:
+  95              		.cfi_def_cfa_offset 4
+  96              		.cfi_offset 14, -4
+  97 0002 85B0     		sub	sp, sp, #20
+  98              	.LCFI2:
+  99              		.cfi_def_cfa_offset 24
+ 100              	.LVL5:
+ 101              	.L7:
+ 160:Core/Src/freertos.c ****   /* USER CODE BEGIN StartTask02 */
+ 161:Core/Src/freertos.c ****   /* Infinite loop */
+ 162:Core/Src/freertos.c ****   for(;;)
+ 102              		.loc 1 162 3 is_stmt 1 discriminator 1 view .LVU8
+ 103              	.LBB2:
+ 163:Core/Src/freertos.c ****   {
+ 164:Core/Src/freertos.c ****     osDelay(100);
+ 104              		.loc 1 164 5 discriminator 1 view .LVU9
+ 105 0004 6420     		movs	r0, #100
+ 106 0006 FFF7FEFF 		bl	osDelay
+ 107              	.LVL6:
+ 165:Core/Src/freertos.c ****     HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
+ 108              		.loc 1 165 5 discriminator 1 view .LVU10
+ 109 000a 0821     		movs	r1, #8
+ 110 000c 0C48     		ldr	r0, .L9
+ 111 000e FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 112              	.LVL7:
+ 166:Core/Src/freertos.c ****     uint8_t buff[]="";
+ 113              		.loc 1 166 5 discriminator 1 view .LVU11
+ 114              		.loc 1 166 13 is_stmt 0 discriminator 1 view .LVU12
+ARM GAS  /tmp/ccPoLI5A.s 			page 6
+
+
+ 115 0012 0024     		movs	r4, #0
+ 116 0014 8DF80C40 		strb	r4, [sp, #12]
+ 167:Core/Src/freertos.c ****     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
+ 117              		.loc 1 167 5 is_stmt 1 discriminator 1 view .LVU13
+ 118 0018 0A4B     		ldr	r3, .L9+4
+ 119 001a 1B68     		ldr	r3, [r3]
+ 120 001c 0A4A     		ldr	r2, .L9+8
+ 121 001e 3C21     		movs	r1, #60
+ 122 0020 03A8     		add	r0, sp, #12
+ 123 0022 FFF7FEFF 		bl	snprintf
+ 124              	.LVL8:
+ 168:Core/Src/freertos.c ****     OLED_Clear(OLED_2);
+ 125              		.loc 1 168 5 discriminator 1 view .LVU14
+ 126 0026 7A20     		movs	r0, #122
+ 127 0028 FFF7FEFF 		bl	OLED_Clear
+ 128              	.LVL9:
+ 169:Core/Src/freertos.c ****     OLED_ShowString(OLED_2,0,3,(char*)buff,16);
+ 129              		.loc 1 169 5 discriminator 1 view .LVU15
+ 130 002c 1023     		movs	r3, #16
+ 131 002e 0093     		str	r3, [sp]
+ 132 0030 03AB     		add	r3, sp, #12
+ 133 0032 0322     		movs	r2, #3
+ 134 0034 2146     		mov	r1, r4
+ 135 0036 7A20     		movs	r0, #122
+ 136 0038 FFF7FEFF 		bl	OLED_ShowString
+ 137              	.LVL10:
+ 138              	.LBE2:
+ 162:Core/Src/freertos.c ****   {
+ 139              		.loc 1 162 8 discriminator 1 view .LVU16
+ 140 003c E2E7     		b	.L7
+ 141              	.L10:
+ 142 003e 00BF     		.align	2
+ 143              	.L9:
+ 144 0040 00000240 		.word	1073872896
+ 145 0044 00000000 		.word	AD_TwoChanel_value
+ 146 0048 00000000 		.word	.LC6
+ 147              		.cfi_endproc
+ 148              	.LFE141:
+ 150              		.section	.text.StartTask_OLED_refresh,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	StartTask_OLED_refresh
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu fpv4-sp-d16
+ 158              	StartTask_OLED_refresh:
+ 159              	.LFB142:
+ 170:Core/Src/freertos.c ****   }
+ 171:Core/Src/freertos.c ****   /* USER CODE END StartTask02 */
+ 172:Core/Src/freertos.c **** }
+ 173:Core/Src/freertos.c **** 
+ 174:Core/Src/freertos.c **** void StartTask_OLED_refresh(void const * argument)
+ 175:Core/Src/freertos.c **** {
+ 160              		.loc 1 175 1 view -0
+ 161              		.cfi_startproc
+ 162              		@ Volatile: function does not return.
+ 163              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccPoLI5A.s 			page 7
+
+
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165              	.LVL11:
+ 166              		.loc 1 175 1 is_stmt 0 view .LVU18
+ 167 0000 08B5     		push	{r3, lr}
+ 168              	.LCFI3:
+ 169              		.cfi_def_cfa_offset 8
+ 170              		.cfi_offset 3, -8
+ 171              		.cfi_offset 14, -4
+ 172              	.LVL12:
+ 173              	.L12:
+ 176:Core/Src/freertos.c ****   /* USER CODE BEGIN StartTask_OLED_refresh */
+ 177:Core/Src/freertos.c ****   /* Infinite loop */
+ 178:Core/Src/freertos.c ****   for(;;)
+ 174              		.loc 1 178 3 is_stmt 1 discriminator 1 view .LVU19
+ 179:Core/Src/freertos.c ****   {
+ 180:Core/Src/freertos.c ****     osDelay(25);
+ 175              		.loc 1 180 5 discriminator 1 view .LVU20
+ 176 0002 1920     		movs	r0, #25
+ 177 0004 FFF7FEFF 		bl	osDelay
+ 178              	.LVL13:
+ 181:Core/Src/freertos.c **** 		OLED_Refreash();//40hz屏幕刷新
+ 179              		.loc 1 181 3 discriminator 1 view .LVU21
+ 180 0008 FFF7FEFF 		bl	OLED_Refreash
+ 181              	.LVL14:
+ 178:Core/Src/freertos.c ****   {
+ 182              		.loc 1 178 8 discriminator 1 view .LVU22
+ 183 000c F9E7     		b	.L12
+ 184              		.cfi_endproc
+ 185              	.LFE142:
+ 187              		.section	.text.vApplicationGetIdleTaskMemory,"ax",%progbits
+ 188              		.align	1
+ 189              		.global	vApplicationGetIdleTaskMemory
+ 190              		.syntax unified
+ 191              		.thumb
+ 192              		.thumb_func
+ 193              		.fpu fpv4-sp-d16
+ 195              	vApplicationGetIdleTaskMemory:
+ 196              	.LVL15:
+ 197              	.LFB138:
+  75:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+ 198              		.loc 1 75 1 view -0
+ 199              		.cfi_startproc
+ 200              		@ args = 0, pretend = 0, frame = 0
+ 201              		@ frame_needed = 0, uses_anonymous_args = 0
+ 202              		@ link register save eliminated.
+  76:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+ 203              		.loc 1 76 3 view .LVU24
+  76:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
+ 204              		.loc 1 76 25 is_stmt 0 view .LVU25
+ 205 0000 034B     		ldr	r3, .L15
+ 206 0002 0360     		str	r3, [r0]
+  77:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+ 207              		.loc 1 77 3 is_stmt 1 view .LVU26
+  77:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+ 208              		.loc 1 77 27 is_stmt 0 view .LVU27
+ 209 0004 034B     		ldr	r3, .L15+4
+ 210 0006 0B60     		str	r3, [r1]
+ARM GAS  /tmp/ccPoLI5A.s 			page 8
+
+
+  78:Core/Src/freertos.c ****   /* place for user code */
+ 211              		.loc 1 78 3 is_stmt 1 view .LVU28
+  78:Core/Src/freertos.c ****   /* place for user code */
+ 212              		.loc 1 78 25 is_stmt 0 view .LVU29
+ 213 0008 8023     		movs	r3, #128
+ 214 000a 1360     		str	r3, [r2]
+  80:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
+ 215              		.loc 1 80 1 view .LVU30
+ 216 000c 7047     		bx	lr
+ 217              	.L16:
+ 218 000e 00BF     		.align	2
+ 219              	.L15:
+ 220 0010 00000000 		.word	.LANCHOR0
+ 221 0014 00000000 		.word	.LANCHOR1
+ 222              		.cfi_endproc
+ 223              	.LFE138:
+ 225              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	MX_FREERTOS_Init
+ 228              		.syntax unified
+ 229              		.thumb
+ 230              		.thumb_func
+ 231              		.fpu fpv4-sp-d16
+ 233              	MX_FREERTOS_Init:
+ 234              	.LFB139:
+  88:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
+ 235              		.loc 1 88 29 is_stmt 1 view -0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 88
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239 0000 70B5     		push	{r4, r5, r6, lr}
+ 240              	.LCFI4:
+ 241              		.cfi_def_cfa_offset 16
+ 242              		.cfi_offset 4, -16
+ 243              		.cfi_offset 5, -12
+ 244              		.cfi_offset 6, -8
+ 245              		.cfi_offset 14, -4
+ 246 0002 96B0     		sub	sp, sp, #88
+ 247              	.LCFI5:
+ 248              		.cfi_def_cfa_offset 104
+ 111:Core/Src/freertos.c ****   YKC_OLEDHandle = osThreadCreate(osThread(YKC_OLED), NULL);
+ 249              		.loc 1 111 3 view .LVU32
+ 250 0004 164C     		ldr	r4, .L19
+ 251 0006 0FAD     		add	r5, sp, #60
+ 252 0008 2646     		mov	r6, r4
+ 253 000a 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
+ 254 000c 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 255 000e 96E80700 		ldm	r6, {r0, r1, r2}
+ 256 0012 85E80700 		stm	r5, {r0, r1, r2}
+ 112:Core/Src/freertos.c **** 
+ 257              		.loc 1 112 3 view .LVU33
+ 112:Core/Src/freertos.c **** 
+ 258              		.loc 1 112 20 is_stmt 0 view .LVU34
+ 259 0016 0021     		movs	r1, #0
+ 260 0018 0FA8     		add	r0, sp, #60
+ 261 001a FFF7FEFF 		bl	osThreadCreate
+ 262              	.LVL16:
+ARM GAS  /tmp/ccPoLI5A.s 			page 9
+
+
+ 112:Core/Src/freertos.c **** 
+ 263              		.loc 1 112 18 view .LVU35
+ 264 001e 114B     		ldr	r3, .L19+4
+ 265 0020 1860     		str	r0, [r3]
+ 115:Core/Src/freertos.c ****   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
+ 266              		.loc 1 115 3 is_stmt 1 view .LVU36
+ 267 0022 08AD     		add	r5, sp, #32
+ 268 0024 04F11C06 		add	r6, r4, #28
+ 269 0028 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
+ 270 002a 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 271 002c 96E80700 		ldm	r6, {r0, r1, r2}
+ 272 0030 85E80700 		stm	r5, {r0, r1, r2}
+ 116:Core/Src/freertos.c **** 
+ 273              		.loc 1 116 3 view .LVU37
+ 116:Core/Src/freertos.c **** 
+ 274              		.loc 1 116 20 is_stmt 0 view .LVU38
+ 275 0034 0021     		movs	r1, #0
+ 276 0036 08A8     		add	r0, sp, #32
+ 277 0038 FFF7FEFF 		bl	osThreadCreate
+ 278              	.LVL17:
+ 116:Core/Src/freertos.c **** 
+ 279              		.loc 1 116 18 view .LVU39
+ 280 003c 0A4B     		ldr	r3, .L19+8
+ 281 003e 1860     		str	r0, [r3]
+ 120:Core/Src/freertos.c ****   Task_OLED_refreHandle = osThreadCreate(osThread(Task_OLED_refre), NULL);
+ 282              		.loc 1 120 3 is_stmt 1 view .LVU40
+ 283 0040 01AD     		add	r5, sp, #4
+ 284 0042 3834     		adds	r4, r4, #56
+ 285 0044 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
+ 286 0046 0FC5     		stmia	r5!, {r0, r1, r2, r3}
+ 287 0048 94E80700 		ldm	r4, {r0, r1, r2}
+ 288 004c 85E80700 		stm	r5, {r0, r1, r2}
  121:Core/Src/freertos.c **** 
- 122:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartDefaultTask */
- 123:Core/Src/freertos.c **** /**
- 124:Core/Src/freertos.c ****   * @brief  Function implementing the YKC_OLED thread.
- 125:Core/Src/freertos.c ****   * @param  argument: Not used
- 126:Core/Src/freertos.c ****   * @retval None
- 127:Core/Src/freertos.c ****   */
- 128:Core/Src/freertos.c **** /* USER CODE END Header_StartDefaultTask */
- 129:Core/Src/freertos.c **** void StartDefaultTask(void const * argument)
- 130:Core/Src/freertos.c **** {
-  36              		.loc 1 130 1 view -0
-  37              		.cfi_startproc
-  38              		@ Volatile: function does not return.
-ARM GAS  /tmp/ccdeXdWP.s 			page 4
+ 289              		.loc 1 121 3 view .LVU41
+ 121:Core/Src/freertos.c **** 
+ 290              		.loc 1 121 27 is_stmt 0 view .LVU42
+ 291 0050 0021     		movs	r1, #0
+ 292 0052 01A8     		add	r0, sp, #4
+ 293 0054 FFF7FEFF 		bl	osThreadCreate
+ 294              	.LVL18:
+ 121:Core/Src/freertos.c **** 
+ 295              		.loc 1 121 25 view .LVU43
+ 296 0058 044B     		ldr	r3, .L19+12
+ 297 005a 1860     		str	r0, [r3]
+ 128:Core/Src/freertos.c **** 
+ 298              		.loc 1 128 1 view .LVU44
+ 299 005c 16B0     		add	sp, sp, #88
+ 300              	.LCFI6:
+ 301              		.cfi_def_cfa_offset 16
+ 302              		@ sp needed
+ 303 005e 70BD     		pop	{r4, r5, r6, pc}
+ 304              	.L20:
+ 305              		.align	2
+ 306              	.L19:
+ 307 0060 00000000 		.word	.LANCHOR2
+ 308 0064 00000000 		.word	YKC_OLEDHandle
+ 309 0068 00000000 		.word	HJY_OLEDHandle
+ARM GAS  /tmp/ccPoLI5A.s 			page 10
 
 
-  39              		@ args = 0, pretend = 0, frame = 0
-  40              		@ frame_needed = 0, uses_anonymous_args = 0
-  41              	.LVL0:
-  42              		.loc 1 130 1 is_stmt 0 view .LVU1
-  43 0000 08B5     		push	{r3, lr}
-  44              	.LCFI0:
-  45              		.cfi_def_cfa_offset 8
-  46              		.cfi_offset 3, -8
-  47              		.cfi_offset 14, -4
-  48              	.LVL1:
-  49              	.L2:
- 131:Core/Src/freertos.c ****   /* USER CODE BEGIN StartDefaultTask */
- 132:Core/Src/freertos.c ****   /* Infinite loop */
- 133:Core/Src/freertos.c ****   for(;;)
-  50              		.loc 1 133 3 is_stmt 1 discriminator 1 view .LVU2
- 134:Core/Src/freertos.c ****   {
- 135:Core/Src/freertos.c ****     osDelay(1000);
-  51              		.loc 1 135 5 discriminator 1 view .LVU3
-  52 0002 4FF47A70 		mov	r0, #1000
-  53 0006 FFF7FEFF 		bl	osDelay
-  54              	.LVL2:
- 136:Core/Src/freertos.c **** 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
-  55              		.loc 1 136 2 discriminator 1 view .LVU4
-  56 000a 0421     		movs	r1, #4
-  57 000c 0148     		ldr	r0, .L4
-  58 000e FFF7FEFF 		bl	HAL_GPIO_TogglePin
-  59              	.LVL3:
- 133:Core/Src/freertos.c ****   {
-  60              		.loc 1 133 8 discriminator 1 view .LVU5
-  61 0012 F6E7     		b	.L2
-  62              	.L5:
-  63              		.align	2
-  64              	.L4:
-  65 0014 00000240 		.word	1073872896
-  66              		.cfi_endproc
-  67              	.LFE245:
-  69              		.section	.rodata.StartTask02.str1.4,"aMS",%progbits,1
-  70              		.align	2
-  71              	.LC4:
-  72 0000 256400   		.ascii	"%d\000"
-  73              		.section	.text.StartTask02,"ax",%progbits
-  74              		.align	1
-  75              		.global	StartTask02
-  76              		.syntax unified
-  77              		.thumb
-  78              		.thumb_func
-  79              		.fpu fpv4-sp-d16
-  81              	StartTask02:
-  82              	.LFB246:
- 137:Core/Src/freertos.c **** //	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
- 138:Core/Src/freertos.c **** //	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
- 139:Core/Src/freertos.c ****   }
- 140:Core/Src/freertos.c ****   /* USER CODE END StartDefaultTask */
- 141:Core/Src/freertos.c **** }
- 142:Core/Src/freertos.c **** 
- 143:Core/Src/freertos.c **** /* USER CODE BEGIN Header_StartTask02 */
- 144:Core/Src/freertos.c **** /**
-ARM GAS  /tmp/ccdeXdWP.s 			page 5
+ 310 006c 00000000 		.word	Task_OLED_refreHandle
+ 311              		.cfi_endproc
+ 312              	.LFE139:
+ 314              		.comm	Task_OLED_refreHandle,4,4
+ 315              		.comm	HJY_OLEDHandle,4,4
+ 316              		.comm	YKC_OLEDHandle,4,4
+ 317              		.section	.rodata
+ 318              		.align	2
+ 319              		.set	.LANCHOR2,. + 0
+ 320              	.LC7:
+ 321 0000 00000000 		.word	.LC0
+ 322 0004 00000000 		.word	StartDefaultTask
+ 323 0008 0000     		.short	0
+ 324 000a 0000     		.space	2
+ 325 000c 00000000 		.word	0
+ 326 0010 80000000 		.word	128
+ 327 0014 00000000 		.word	0
+ 328 0018 00000000 		.word	0
+ 329              	.LC8:
+ 330 001c 0C000000 		.word	.LC2
+ 331 0020 00000000 		.word	StartTask02
+ 332 0024 FDFF     		.short	-3
+ 333 0026 0000     		.space	2
+ 334 0028 00000000 		.word	0
+ 335 002c 80000000 		.word	128
+ 336 0030 00000000 		.word	0
+ 337 0034 00000000 		.word	0
+ 338              	.LC9:
+ 339 0038 18000000 		.word	.LC4
+ 340 003c 00000000 		.word	StartTask_OLED_refresh
+ 341 0040 FEFF     		.short	-2
+ 342 0042 0000     		.space	2
+ 343 0044 00000000 		.word	0
+ 344 0048 80000000 		.word	128
+ 345 004c 00000000 		.word	0
+ 346 0050 00000000 		.word	0
+ 347              		.section	.bss.xIdleStack,"aw",%nobits
+ 348              		.align	2
+ 349              		.set	.LANCHOR1,. + 0
+ 352              	xIdleStack:
+ 353 0000 00000000 		.space	512
+ 353      00000000 
+ 353      00000000 
+ 353      00000000 
+ 353      00000000 
+ 354              		.section	.bss.xIdleTaskTCBBuffer,"aw",%nobits
+ 355              		.align	2
+ 356              		.set	.LANCHOR0,. + 0
+ 359              	xIdleTaskTCBBuffer:
+ 360 0000 00000000 		.space	84
+ 360      00000000 
+ 360      00000000 
+ 360      00000000 
+ 360      00000000 
+ 361              		.text
+ 362              	.Letext0:
+ 363              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
+ARM GAS  /tmp/ccPoLI5A.s 			page 11
 
 
- 145:Core/Src/freertos.c **** * @brief Function implementing the HJY_OLED thread.
- 146:Core/Src/freertos.c **** * @param argument: Not used
- 147:Core/Src/freertos.c **** * @retval None
- 148:Core/Src/freertos.c **** */
- 149:Core/Src/freertos.c **** /* USER CODE END Header_StartTask02 */
- 150:Core/Src/freertos.c **** void StartTask02(void const * argument)
- 151:Core/Src/freertos.c **** {
-  83              		.loc 1 151 1 view -0
-  84              		.cfi_startproc
-  85              		@ Volatile: function does not return.
-  86              		@ args = 0, pretend = 0, frame = 8
-  87              		@ frame_needed = 0, uses_anonymous_args = 0
-  88              	.LVL4:
-  89              		.loc 1 151 1 is_stmt 0 view .LVU7
-  90 0000 00B5     		push	{lr}
-  91              	.LCFI1:
-  92              		.cfi_def_cfa_offset 4
-  93              		.cfi_offset 14, -4
-  94 0002 85B0     		sub	sp, sp, #20
-  95              	.LCFI2:
-  96              		.cfi_def_cfa_offset 24
-  97              	.LVL5:
-  98              	.L7:
- 152:Core/Src/freertos.c ****   /* USER CODE BEGIN StartTask02 */
- 153:Core/Src/freertos.c ****   /* Infinite loop */
- 154:Core/Src/freertos.c ****   for(;;)
-  99              		.loc 1 154 3 is_stmt 1 discriminator 1 view .LVU8
- 100              	.LBB2:
- 155:Core/Src/freertos.c ****   {
- 156:Core/Src/freertos.c ****     osDelay(500);
- 101              		.loc 1 156 5 discriminator 1 view .LVU9
- 102 0004 4FF4FA70 		mov	r0, #500
- 103 0008 FFF7FEFF 		bl	osDelay
- 104              	.LVL6:
- 157:Core/Src/freertos.c **** 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
- 105              		.loc 1 157 2 discriminator 1 view .LVU10
- 106 000c 0821     		movs	r1, #8
- 107 000e 0C48     		ldr	r0, .L9
- 108 0010 FFF7FEFF 		bl	HAL_GPIO_TogglePin
- 109              	.LVL7:
- 158:Core/Src/freertos.c **** 	OLED_Refreash();
- 110              		.loc 1 158 2 discriminator 1 view .LVU11
- 111 0014 FFF7FEFF 		bl	OLED_Refreash
- 112              	.LVL8:
- 159:Core/Src/freertos.c ****     uint8_t buff[]="";
- 113              		.loc 1 159 5 discriminator 1 view .LVU12
- 114              		.loc 1 159 13 is_stmt 0 discriminator 1 view .LVU13
- 115 0018 0024     		movs	r4, #0
- 116 001a 8DF80C40 		strb	r4, [sp, #12]
- 160:Core/Src/freertos.c ****     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
- 117              		.loc 1 160 5 is_stmt 1 discriminator 1 view .LVU14
- 118 001e 094B     		ldr	r3, .L9+4
- 119 0020 1B68     		ldr	r3, [r3]
- 120 0022 094A     		ldr	r2, .L9+8
- 121 0024 3C21     		movs	r1, #60
- 122 0026 03A8     		add	r0, sp, #12
- 123 0028 FFF7FEFF 		bl	snprintf
-ARM GAS  /tmp/ccdeXdWP.s 			page 6
-
-
- 124              	.LVL9:
- 161:Core/Src/freertos.c **** 	OLED_ShowString(OLED_2,0,1,(char*)buff,16);
- 125              		.loc 1 161 2 discriminator 1 view .LVU15
- 126 002c 1023     		movs	r3, #16
- 127 002e 0093     		str	r3, [sp]
- 128 0030 03AB     		add	r3, sp, #12
- 129 0032 0122     		movs	r2, #1
- 130 0034 2146     		mov	r1, r4
- 131 0036 7A20     		movs	r0, #122
- 132 0038 FFF7FEFF 		bl	OLED_ShowString
- 133              	.LVL10:
- 134              	.LBE2:
- 154:Core/Src/freertos.c ****   {
- 135              		.loc 1 154 8 discriminator 1 view .LVU16
- 136 003c E2E7     		b	.L7
- 137              	.L10:
- 138 003e 00BF     		.align	2
- 139              	.L9:
- 140 0040 00000240 		.word	1073872896
- 141 0044 00000000 		.word	AD_TwoChanel_value
- 142 0048 00000000 		.word	.LC4
- 143              		.cfi_endproc
- 144              	.LFE246:
- 146              		.section	.text.vApplicationGetIdleTaskMemory,"ax",%progbits
- 147              		.align	1
- 148              		.global	vApplicationGetIdleTaskMemory
- 149              		.syntax unified
- 150              		.thumb
- 151              		.thumb_func
- 152              		.fpu fpv4-sp-d16
- 154              	vApplicationGetIdleTaskMemory:
- 155              	.LVL11:
- 156              	.LFB243:
-  73:Core/Src/freertos.c ****   *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
- 157              		.loc 1 73 1 view -0
- 158              		.cfi_startproc
- 159              		@ args = 0, pretend = 0, frame = 0
- 160              		@ frame_needed = 0, uses_anonymous_args = 0
- 161              		@ link register save eliminated.
-  74:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
- 162              		.loc 1 74 3 view .LVU18
-  74:Core/Src/freertos.c ****   *ppxIdleTaskStackBuffer = &xIdleStack[0];
- 163              		.loc 1 74 25 is_stmt 0 view .LVU19
- 164 0000 034B     		ldr	r3, .L12
- 165 0002 0360     		str	r3, [r0]
-  75:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
- 166              		.loc 1 75 3 is_stmt 1 view .LVU20
-  75:Core/Src/freertos.c ****   *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
- 167              		.loc 1 75 27 is_stmt 0 view .LVU21
- 168 0004 034B     		ldr	r3, .L12+4
- 169 0006 0B60     		str	r3, [r1]
-  76:Core/Src/freertos.c ****   /* place for user code */
- 170              		.loc 1 76 3 is_stmt 1 view .LVU22
-  76:Core/Src/freertos.c ****   /* place for user code */
- 171              		.loc 1 76 25 is_stmt 0 view .LVU23
- 172 0008 8023     		movs	r3, #128
- 173 000a 1360     		str	r3, [r2]
-ARM GAS  /tmp/ccdeXdWP.s 			page 7
-
-
-  78:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
- 174              		.loc 1 78 1 view .LVU24
- 175 000c 7047     		bx	lr
- 176              	.L13:
- 177 000e 00BF     		.align	2
- 178              	.L12:
- 179 0010 00000000 		.word	.LANCHOR0
- 180 0014 00000000 		.word	.LANCHOR1
- 181              		.cfi_endproc
- 182              	.LFE243:
- 184              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
- 185              		.align	1
- 186              		.global	MX_FREERTOS_Init
- 187              		.syntax unified
- 188              		.thumb
- 189              		.thumb_func
- 190              		.fpu fpv4-sp-d16
- 192              	MX_FREERTOS_Init:
- 193              	.LFB244:
-  86:Core/Src/freertos.c ****   /* USER CODE BEGIN Init */
- 194              		.loc 1 86 29 is_stmt 1 view -0
- 195              		.cfi_startproc
- 196              		@ args = 0, pretend = 0, frame = 56
- 197              		@ frame_needed = 0, uses_anonymous_args = 0
- 198 0000 70B5     		push	{r4, r5, r6, lr}
- 199              	.LCFI3:
- 200              		.cfi_def_cfa_offset 16
- 201              		.cfi_offset 4, -16
- 202              		.cfi_offset 5, -12
- 203              		.cfi_offset 6, -8
- 204              		.cfi_offset 14, -4
- 205 0002 8EB0     		sub	sp, sp, #56
- 206              	.LCFI4:
- 207              		.cfi_def_cfa_offset 72
- 109:Core/Src/freertos.c ****   YKC_OLEDHandle = osThreadCreate(osThread(YKC_OLED), NULL);
- 208              		.loc 1 109 3 view .LVU26
- 209 0004 0F4C     		ldr	r4, .L16
- 210 0006 07AD     		add	r5, sp, #28
- 211 0008 2646     		mov	r6, r4
- 212 000a 0FCE     		ldmia	r6!, {r0, r1, r2, r3}
- 213 000c 0FC5     		stmia	r5!, {r0, r1, r2, r3}
- 214 000e 96E80700 		ldm	r6, {r0, r1, r2}
- 215 0012 85E80700 		stm	r5, {r0, r1, r2}
- 110:Core/Src/freertos.c **** 
- 216              		.loc 1 110 3 view .LVU27
- 110:Core/Src/freertos.c **** 
- 217              		.loc 1 110 20 is_stmt 0 view .LVU28
- 218 0016 0021     		movs	r1, #0
- 219 0018 07A8     		add	r0, sp, #28
- 220 001a FFF7FEFF 		bl	osThreadCreate
- 221              	.LVL12:
- 110:Core/Src/freertos.c **** 
- 222              		.loc 1 110 18 view .LVU29
- 223 001e 0A4B     		ldr	r3, .L16+4
- 224 0020 1860     		str	r0, [r3]
- 113:Core/Src/freertos.c ****   HJY_OLEDHandle = osThreadCreate(osThread(HJY_OLED), NULL);
- 225              		.loc 1 113 3 is_stmt 1 view .LVU30
-ARM GAS  /tmp/ccdeXdWP.s 			page 8
-
-
- 226 0022 6D46     		mov	r5, sp
- 227 0024 1C34     		adds	r4, r4, #28
- 228 0026 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
- 229 0028 0FC5     		stmia	r5!, {r0, r1, r2, r3}
- 230 002a 94E80700 		ldm	r4, {r0, r1, r2}
- 231 002e 85E80700 		stm	r5, {r0, r1, r2}
- 114:Core/Src/freertos.c **** 
- 232              		.loc 1 114 3 view .LVU31
- 114:Core/Src/freertos.c **** 
- 233              		.loc 1 114 20 is_stmt 0 view .LVU32
- 234 0032 0021     		movs	r1, #0
- 235 0034 6846     		mov	r0, sp
- 236 0036 FFF7FEFF 		bl	osThreadCreate
- 237              	.LVL13:
- 114:Core/Src/freertos.c **** 
- 238              		.loc 1 114 18 view .LVU33
- 239 003a 044B     		ldr	r3, .L16+8
- 240 003c 1860     		str	r0, [r3]
- 120:Core/Src/freertos.c **** 
- 241              		.loc 1 120 1 view .LVU34
- 242 003e 0EB0     		add	sp, sp, #56
- 243              	.LCFI5:
- 244              		.cfi_def_cfa_offset 16
- 245              		@ sp needed
- 246 0040 70BD     		pop	{r4, r5, r6, pc}
- 247              	.L17:
- 248 0042 00BF     		.align	2
- 249              	.L16:
- 250 0044 00000000 		.word	.LANCHOR2
- 251 0048 00000000 		.word	YKC_OLEDHandle
- 252 004c 00000000 		.word	HJY_OLEDHandle
- 253              		.cfi_endproc
- 254              	.LFE244:
- 256              		.comm	HJY_OLEDHandle,4,4
- 257              		.comm	YKC_OLEDHandle,4,4
- 258              		.section	.rodata
- 259              		.align	2
- 260              		.set	.LANCHOR2,. + 0
- 261              	.LC5:
- 262 0000 00000000 		.word	.LC0
- 263 0004 00000000 		.word	StartDefaultTask
- 264 0008 0000     		.short	0
- 265 000a 0000     		.space	2
- 266 000c 00000000 		.word	0
- 267 0010 80000000 		.word	128
- 268 0014 00000000 		.word	0
- 269 0018 00000000 		.word	0
- 270              	.LC6:
- 271 001c 0C000000 		.word	.LC2
- 272 0020 00000000 		.word	StartTask02
- 273 0024 FDFF     		.short	-3
- 274 0026 0000     		.space	2
- 275 0028 00000000 		.word	0
- 276 002c 80000000 		.word	128
- 277 0030 00000000 		.word	0
- 278 0034 00000000 		.word	0
- 279              		.section	.bss.xIdleStack,"aw",%nobits
-ARM GAS  /tmp/ccdeXdWP.s 			page 9
-
-
- 280              		.align	2
- 281              		.set	.LANCHOR1,. + 0
- 284              	xIdleStack:
- 285 0000 00000000 		.space	512
- 285      00000000 
- 285      00000000 
- 285      00000000 
- 285      00000000 
- 286              		.section	.bss.xIdleTaskTCBBuffer,"aw",%nobits
- 287              		.align	2
- 288              		.set	.LANCHOR0,. + 0
- 291              	xIdleTaskTCBBuffer:
- 292 0000 00000000 		.space	84
- 292      00000000 
- 292      00000000 
- 292      00000000 
- 292      00000000 
- 293              		.text
- 294              	.Letext0:
- 295              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h"
- 296              		.file 3 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h"
- 297              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h"
- 298              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
- 299              		.file 6 "Core/Inc/FreeRTOSConfig.h"
- 300              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
- 301              		.file 8 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 302              		.file 9 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
- 303              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
- 304              		.file 11 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
- 305              		.file 12 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
- 306              		.file 13 "/usr/include/newlib/sys/_types.h"
- 307              		.file 14 "/usr/include/newlib/sys/reent.h"
- 308              		.file 15 "/usr/include/newlib/sys/lock.h"
- 309              		.file 16 "/usr/include/newlib/stdlib.h"
- 310              		.file 17 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
- 311              		.file 18 "Core/Inc/oled.h"
- 312              		.file 19 "/usr/include/newlib/stdio.h"
-ARM GAS  /tmp/ccdeXdWP.s 			page 10
+ 364              		.file 3 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 365              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h"
+ 366              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 367              		.file 6 "Core/Inc/FreeRTOSConfig.h"
+ 368              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
+ 369              		.file 8 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h"
+ 370              		.file 9 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f405xx.h"
+ 371              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h"
+ 372              		.file 11 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 373              		.file 12 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 374              		.file 13 "/usr/include/newlib/sys/_types.h"
+ 375              		.file 14 "/usr/include/newlib/sys/reent.h"
+ 376              		.file 15 "/usr/include/newlib/sys/lock.h"
+ 377              		.file 16 "/usr/include/newlib/stdlib.h"
+ 378              		.file 17 "Core/Inc/oled.h"
+ 379              		.file 18 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 380              		.file 19 "/usr/include/newlib/stdio.h"
+ARM GAS  /tmp/ccPoLI5A.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 freertos.c
-     /tmp/ccdeXdWP.s:15     .rodata.str1.4:0000000000000000 $d
-     /tmp/ccdeXdWP.s:25     .text.StartDefaultTask:0000000000000000 $t
-     /tmp/ccdeXdWP.s:33     .text.StartDefaultTask:0000000000000000 StartDefaultTask
-     /tmp/ccdeXdWP.s:65     .text.StartDefaultTask:0000000000000014 $d
-     /tmp/ccdeXdWP.s:70     .rodata.StartTask02.str1.4:0000000000000000 $d
-     /tmp/ccdeXdWP.s:74     .text.StartTask02:0000000000000000 $t
-     /tmp/ccdeXdWP.s:81     .text.StartTask02:0000000000000000 StartTask02
-     /tmp/ccdeXdWP.s:140    .text.StartTask02:0000000000000040 $d
-     /tmp/ccdeXdWP.s:147    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
-     /tmp/ccdeXdWP.s:154    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
-     /tmp/ccdeXdWP.s:179    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
-     /tmp/ccdeXdWP.s:185    .text.MX_FREERTOS_Init:0000000000000000 $t
-     /tmp/ccdeXdWP.s:192    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
-     /tmp/ccdeXdWP.s:250    .text.MX_FREERTOS_Init:0000000000000044 $d
+     /tmp/ccPoLI5A.s:15     .rodata.str1.4:0000000000000000 $d
+     /tmp/ccPoLI5A.s:28     .text.StartDefaultTask:0000000000000000 $t
+     /tmp/ccPoLI5A.s:36     .text.StartDefaultTask:0000000000000000 StartDefaultTask
+     /tmp/ccPoLI5A.s:68     .text.StartDefaultTask:0000000000000014 $d
+     /tmp/ccPoLI5A.s:73     .rodata.StartTask02.str1.4:0000000000000000 $d
+     /tmp/ccPoLI5A.s:77     .text.StartTask02:0000000000000000 $t
+     /tmp/ccPoLI5A.s:84     .text.StartTask02:0000000000000000 StartTask02
+     /tmp/ccPoLI5A.s:144    .text.StartTask02:0000000000000040 $d
+     /tmp/ccPoLI5A.s:151    .text.StartTask_OLED_refresh:0000000000000000 $t
+     /tmp/ccPoLI5A.s:158    .text.StartTask_OLED_refresh:0000000000000000 StartTask_OLED_refresh
+     /tmp/ccPoLI5A.s:188    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
+     /tmp/ccPoLI5A.s:195    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
+     /tmp/ccPoLI5A.s:220    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
+     /tmp/ccPoLI5A.s:226    .text.MX_FREERTOS_Init:0000000000000000 $t
+     /tmp/ccPoLI5A.s:233    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
+     /tmp/ccPoLI5A.s:307    .text.MX_FREERTOS_Init:0000000000000060 $d
                             *COM*:0000000000000004 YKC_OLEDHandle
                             *COM*:0000000000000004 HJY_OLEDHandle
-     /tmp/ccdeXdWP.s:259    .rodata:0000000000000000 $d
-     /tmp/ccdeXdWP.s:280    .bss.xIdleStack:0000000000000000 $d
-     /tmp/ccdeXdWP.s:284    .bss.xIdleStack:0000000000000000 xIdleStack
-     /tmp/ccdeXdWP.s:287    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
-     /tmp/ccdeXdWP.s:291    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
+                            *COM*:0000000000000004 Task_OLED_refreHandle
+     /tmp/ccPoLI5A.s:318    .rodata:0000000000000000 $d
+     /tmp/ccPoLI5A.s:348    .bss.xIdleStack:0000000000000000 $d
+     /tmp/ccPoLI5A.s:352    .bss.xIdleStack:0000000000000000 xIdleStack
+     /tmp/ccPoLI5A.s:355    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
+     /tmp/ccPoLI5A.s:359    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
 
 UNDEFINED SYMBOLS
 osDelay
 HAL_GPIO_TogglePin
-OLED_Refreash
 snprintf
+OLED_Clear
 OLED_ShowString
 AD_TwoChanel_value
+OLED_Refreash
 osThreadCreate
