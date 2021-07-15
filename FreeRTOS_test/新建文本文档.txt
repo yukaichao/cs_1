@@ -1,0 +1,35 @@
+  for(;;)
+  {
+    osDelay(23);
+		OLED_Refreash();//40hz屏幕刷新
+  }
+  
+    for(;;)
+  {
+    if (a!=a_q)
+    {
+      a_q=a;
+      OLED_Clear();
+      sprintf(str,"a:%d",a);
+      OLED_ShowString(0,0,str,16);
+    }
+  }
+  
+  uint32_t a;
+uint32_t a_q;
+char str[20];
+
+  for(;;)
+  {
+    HAL_GPIO_TogglePin(GPIOA,GPIO_PIN_0);
+		a++;
+    if(a%40 == 1)
+    {
+      HAL_GPIO_WritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+      osDelay(1000);
+    }
+    else
+    {
+      osDelay(50);
+    }
+  }
