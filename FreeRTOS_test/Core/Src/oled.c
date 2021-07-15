@@ -65,7 +65,7 @@ void OLED_Init(void)
 { 	
 	HAL_Delay(200);//这里的延时很重要
 	WriteCmd(OLED_1);
-	HAL_Delay(100);//这里的延时很重要
+	HAL_Delay(200);//这里的延时很重要
 	WriteCmd(OLED_2);
 }
 //清屏
