@@ -25,19 +25,22 @@
 #include "stdlib.h"	    	
 
 #include "main.h"
-			  
+
+#define OLED_1	0x78 //通过调整0R电阻,屏可以选择0x78  0x7A两个地址   默认为0x78
+#define OLED_2	0x7A //通过调整0R电阻,屏可以选择0x78  0x7A两个地址   默认为0x78
+
 //extern I2C_HandleTypeDef hi2c1;
 //OLED控制用函数
-void WriteCmd(void);
+void WriteCmd(uint8_t ADDRESS);
 
 
 void OLED_Init(void);
-void OLED_Clear(void);
+void OLED_Clear(uint8_t ADDRESS);
 
-void OLED_ShowNum(uint8_t x,uint8_t y,unsigned int num,uint8_t len,uint8_t size2);//显示2个数字
-void OLED_ShowChar(uint8_t x,uint8_t y,char chr,uint8_t Char_Size,uint8_t Is_Reverse);
-void OLED_ShowString(uint8_t x,uint8_t y,char chr[],uint8_t Char_Size);//显示一个字符号串
-void OLED_ShowCHinese(uint8_t x,uint8_t y,uint8_t no);//显示汉字
+void OLED_ShowNum(uint8_t ADDRESS,uint8_t x,uint8_t y,unsigned int num,uint8_t len,uint8_t size2);//显示2个数字
+void OLED_ShowChar(uint8_t ADDRESS,uint8_t x,uint8_t y,char chr,uint8_t Char_Size,uint8_t Is_Reverse);
+void OLED_ShowString(uint8_t ADDRESS,uint8_t x,uint8_t y,char chr[],uint8_t Char_Size);//显示一个字符号串
+void OLED_ShowCHinese(uint8_t ADDRESS,uint8_t x,uint8_t y,uint8_t no);//显示汉字
 void OLED_Refreash(void);
 #endif  
 	 
