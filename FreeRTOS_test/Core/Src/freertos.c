@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "oled.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -155,7 +156,6 @@ void StartTask02(void const * argument)
     osDelay(500);
 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_3);
 	OLED_Refreash();
-	#include "stdio.h"
     uint8_t buff[]="";
     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
 	OLED_ShowString(OLED_2,0,1,(char*)buff,16);
