@@ -133,8 +133,8 @@ void StartDefaultTask(void const * argument)
   {
     osDelay(1000);
 	HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
-	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
-	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
+//	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
+//	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
   }
   /* USER CODE END StartDefaultTask */
 }
