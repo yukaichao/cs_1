@@ -34,6 +34,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 uint32_t AD_TwoChanel_value[2];
+extern uint8_t OLED_1_data[8][128];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -96,14 +97,7 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 	OLED_Init();
-	OLED_ShowString(OLED_1,0,1,"oled1_ok",16);
-	OLED_ShowString(OLED_2,0,1,"oled2_ok",16);
-	HAL_Delay(1);
-	OLED_Refreash();
-	HAL_Delay(40);
-	OLED_Refreash();
-
-	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&AD_TwoChanel_value,2);
+	//HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&AD_TwoChanel_value,2);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

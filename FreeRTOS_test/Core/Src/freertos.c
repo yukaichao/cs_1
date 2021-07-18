@@ -28,11 +28,13 @@
 /* USER CODE BEGIN Includes */
 #include "oled.h"
 #include "stdio.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern uint32_t AD_TwoChanel_value[2];
+extern uint8_t OLED_1_data[8][128];
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -127,6 +129,26 @@ void MX_FREERTOS_Init(void) {
 
 }
 
+void OLED_ShowPixel(uint8_t x,uint8_t y)
+{
+	OLED_1_data[y/8][x]|=0x01<<(y%8);
+}
+
+//x0负责上下，y0负责左右
+void draw_circle(uint8_t x0,uint8_t y0,uint8_t r) //圆心(x0,y0),半径r
+{
+		uint8_t x = 0,y = 0,R = 0;
+		for(x = x0-r;x <= x0+r;x++){
+			for(y = y0-r; y <= y0+r ;y++ ){
+				R = sqrt(pow(r,2)-pow(x-x0,2))+y0; //圆方程  x,y反置		
+				if( (y >= y0 && y <= R) || (y < y0 && y >= 2*y0-R )) {  //点限制在 圆方程内	
+					OLED_ShowPixel(y,x);
+				}	
+			}
+		}
+
+}
+
 /* USER CODE BEGIN Header_StartDefaultTask */
 /**
   * @brief  Function implementing the YKC_OLED thread.
@@ -140,11 +162,14 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);
-	  HAL_GPIO_TogglePin(GPIOA ,GPIO_PIN_2);
-//  	OLED_ShowNum(0,0,AD_TwoChanel_value[0],8,8);
-//  	OLED_ShowNum(0,0,AD_TwoChanel_value[1],4,4);
+//	for(uint8_t x = 32;x <= 64;x++){
+//	OLED_Clear(OLED_1 );
+	draw_circle(32,64,32);
+	OLED_ShowString(OLED_1,6,4,"world of wonder",8);
+	OLED_Refreash();//40hz屏幕刷新	
+//	}
   }
+
   /* USER CODE END StartDefaultTask */
 }
 
@@ -167,6 +192,7 @@ void StartTask02(void const * argument)
     snprintf((char*)buff,60,"%d",AD_TwoChanel_value[0]);
     OLED_Clear(OLED_2);
     OLED_ShowString(OLED_2,0,3,(char*)buff,16);
+	OLED_Refreash();//40hz屏幕刷新
   }
   /* USER CODE END StartTask02 */
 }
@@ -178,7 +204,7 @@ void StartTask_OLED_refresh(void const * argument)
   for(;;)
   {
     osDelay(25);
-		OLED_Refreash();//40hz屏幕刷新
+    OLED_Refreash();//40hz屏幕刷新
   }
   /* USER CODE END StartTask_OLED_refresh */
 }
